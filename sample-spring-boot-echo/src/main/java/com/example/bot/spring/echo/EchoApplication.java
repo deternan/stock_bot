@@ -317,12 +317,12 @@ public class EchoApplication
 			e.printStackTrace();
 		} 
 		
-		try {
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		} 	
+//		try {
+//			BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			//e.printStackTrace();
+//		} 	
     	
     	
 //        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
