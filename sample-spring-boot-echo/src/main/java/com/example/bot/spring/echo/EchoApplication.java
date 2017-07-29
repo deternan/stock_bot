@@ -88,8 +88,9 @@ public class EchoApplication
 		// Digital check        
         digital_check = Regular_Expression_Digital(event.getMessage().getText());
         if(digital_check == true){
+        	// Input stock ID
         	if(event.getMessage().getText().length() == 4){
-        		//get_return = "4 digital";        		
+        		        		
         		get_stockname = "";        	
             	get_stockname = Return_name(event.getMessage().getText());
             	if(get_stockname.length() > 0){
@@ -108,14 +109,16 @@ public class EchoApplication
         		return new TextMessage(get_return);
         	}        	
         }else{
+        	// Input stock name
         	getstockcode = "";
         	if(event.getMessage().getText().length() > 0){
         		getstockcode = Return_code(event.getMessage().getText());
+        		String result_txt;
+        		// Google finicial
+        		result_txt = Google_data(getstockcode);
         		
-        		// Google
-//        		Google_data(getstockcode);
-        		
-        		return new TextMessage(getstockcode);
+        		return new TextMessage(result_txt);
+        		//return new TextMessage(getstockcode);
         	}else{
         		get_return = "illegal"; 
         		return new TextMessage(get_return);
@@ -247,7 +250,7 @@ public class EchoApplication
 		}		
 	}
 
-    private void Google_data(String code)
+    private String Google_data(String code)
 	{
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
@@ -339,18 +342,20 @@ public class EchoApplication
 //        System.out.println(sb.toString());
         
     	URL urla;
+    	String result_txt = "";
 		try {
 			urla = new URL(url);
 			urla.openConnection();
 			InputStream reader = urla.openStream();
-			String result = IOUtils.toString(reader, StandardCharsets.UTF_8);
-			System.out.println(result);
+			result_txt = IOUtils.toString(reader, StandardCharsets.UTF_8);
+			//System.out.println(result);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
+		return result_txt;
     	
 		// String to Json
 		// String_to_Json(result_str);
