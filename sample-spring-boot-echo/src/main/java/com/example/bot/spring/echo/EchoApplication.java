@@ -249,7 +249,7 @@ public class EchoApplication
 		}		
 	}
 
-    private static void Google_data(String code) throws Exception
+    private void Google_data(String code) throws Exception
 	{
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
@@ -297,8 +297,8 @@ public class EchoApplication
     	*/
 		
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
-        InputStream is = new URL(url).openStream();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
+//        InputStream is = new URL(url).openStream();
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
 //        StringBuilder sb = new StringBuilder();
 //        String inputLine;
 //        while ((inputLine = rd.readLine()) != null) 
