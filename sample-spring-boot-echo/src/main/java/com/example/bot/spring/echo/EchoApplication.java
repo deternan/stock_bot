@@ -30,7 +30,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -289,7 +291,7 @@ public class EchoApplication
 		//System.out.println(json_str);	
     	*/
 		
-    	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	/*
     	try{
     		InputStream is = new URL(url).openStream();
     		BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8")); 	//避免中文亂碼問題
@@ -302,6 +304,27 @@ public class EchoApplication
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
+    	*/
+    	
+    	InputStream is = null;
+		String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+		try {
+			is = new URL(url).openStream();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		try {
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		} 	
+    	
     	
 //        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
 //        StringBuilder sb = new StringBuilder();
