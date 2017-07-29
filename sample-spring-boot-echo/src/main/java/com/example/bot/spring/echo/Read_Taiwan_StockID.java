@@ -14,8 +14,8 @@ public class Read_Taiwan_StockID
 	private Matcher m;
 	private String space_pattern = "^[0-9]";	
 		
-	public ArrayList<String> code = new ArrayList<String>();
-	public ArrayList<String> name = new ArrayList<String>();
+	public Vector code = new Vector();
+	public Vector name = new Vector();
 		
 	public Read_Taiwan_StockID() throws Exception
 	{
@@ -74,12 +74,12 @@ public class Read_Taiwan_StockID
 		name.add(name_temp);
 	}
     
-    public ArrayList Return_name()
+    public Vector Return_name()
     {    	
     	return name;
     }
 	
-    public ArrayList Return_code()
+    public Vector Return_code()
     {
     	return code;
     }
