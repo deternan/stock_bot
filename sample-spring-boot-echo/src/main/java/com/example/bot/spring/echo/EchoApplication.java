@@ -41,6 +41,11 @@ import org.jsoup.select.Elements;
 public class EchoApplication 
 {
 	
+	// Pattern expression
+	private static Pattern p;
+	private static Matcher m;
+	private static String space_pattern = "^[0-9]";	
+	
 	static ArrayList<String> code = new ArrayList<String>();
 	static ArrayList<String> name = new ArrayList<String>();
 	
