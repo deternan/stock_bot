@@ -10,14 +10,13 @@ import org.jsoup.select.Elements;
 public class Read_Taiwan_StockID 
 {
 	// Pattern expression
-	private static Pattern p;
-	private static Matcher m;
-	private static String space_pattern = "^[0-9]";	
+	private Pattern p;
+	private Matcher m;
+	private String space_pattern = "^[0-9]";	
 		
-	public static ArrayList<String> code = new ArrayList<String>();
-	public static ArrayList<String> name = new ArrayList<String>();
-	
-	
+	public ArrayList<String> code = new ArrayList<String>();
+	public ArrayList<String> name = new ArrayList<String>();
+		
 	public Read_Taiwan_StockID() throws Exception
 	{
 		String url = "http://isin.twse.com.tw/isin/C_public.jsp?strMode=2";
@@ -44,7 +43,7 @@ public class Read_Taiwan_StockID
 		}
 	}
 	
-	private static boolean Pattern_expression_digital(String input)
+	private void boolean Pattern_expression_digital(String input)
 	{
 		boolean check = false;
 		String temp;
@@ -66,7 +65,7 @@ public class Read_Taiwan_StockID
 		return check;
 	}
     
-    private static void Separation(String input)
+    private void void Separation(String input)
 	{
 		String code_temp = input.substring(0, 4);
 		String name_temp = input.substring(5, input.length());
