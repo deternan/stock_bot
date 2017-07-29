@@ -299,6 +299,10 @@ public class EchoApplication
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	try{
     		InputStream is = new URL(url).openStream();
+    		BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8")); 	//避免中文亂碼問題
+            StringBuilder sb = new StringBuilder();
+            String inputLine;
+            
     	}  catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
