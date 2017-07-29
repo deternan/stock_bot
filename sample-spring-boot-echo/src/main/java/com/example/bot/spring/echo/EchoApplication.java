@@ -36,7 +36,12 @@ import org.jsoup.select.Elements;
 
 @SpringBootApplication
 @LineMessageHandler
-public class EchoApplication {
+public class EchoApplication 
+{
+	
+	static ArrayList<String> code = new ArrayList<String>();
+	static ArrayList<String> name = new ArrayList<String>();
+	
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
     }
@@ -124,6 +129,37 @@ public class EchoApplication {
 				}			
 			}	
 		}
+	}
+    
+    private static boolean Pattern_expression_digital(String input)
+	{
+		boolean check = false;
+		String temp;
+		if(input.trim().length() < 5){
+			temp = input.trim();
+		}else{
+			temp = input.substring(4, 5).trim();
+		}
+		//System.out.println(temp);
+        p = Pattern.compile(space_pattern);
+        m = p.matcher(temp);
+        if(m.find()){
+        	//System.out.println("Not Digital");
+        	check = false;
+        }else{
+        	check = true;
+        }
+		
+		return check;
+	}
+    
+    private static void Separation(String input)
+	{
+		String code_temp = input.substring(0, 4);
+		String name_temp = input.substring(5, input.length());
+		
+		code.add(code_temp);
+		name.add(name_temp);
 	}
     
     private static String Return_name(String code_str)
