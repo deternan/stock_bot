@@ -29,6 +29,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -284,12 +285,33 @@ public class EchoApplication
 		}
 		*/
 
+    	/*
     	Document doc = Jsoup.connect("http://finance.google.com/finance/info?client=ig&q=TPE:2317").get();
 		//System.out.println(doc);
 		Elements body = doc.select("body");
 //		String json_str;
 //		json_str = body.text().substring(3, body.text().length());
 		//System.out.println(json_str);	
+    	*/
+		
+    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+        InputStream is = new URL(url).openStream();
+        try {
+             BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8")); 	//避免中文亂碼問題
+             StringBuilder sb = new StringBuilder();
+             String inputLine;
+             while ((inputLine = rd.readLine()) != null) 
+             {
+    			 sb.append(inputLine);
+            	 //System.out.println(inputLine);
+    		 }
+             System.out.println(sb.toString());
+
+             //JSONObject json = JSONObject.fromObject(sb.toString());
+             //System.out.println(json.get("hello"));
+        } finally {
+             is.close();
+        }
     	
 		// String to Json
 		// String_to_Json(result_str);
