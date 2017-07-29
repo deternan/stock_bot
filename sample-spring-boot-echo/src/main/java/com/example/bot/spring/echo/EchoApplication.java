@@ -61,8 +61,7 @@ public class EchoApplication
 	
 	// Output
 	JSONParser parser_output = new JSONParser();
-	JSONArray array_output;
-	JSONObject output_json;
+	JSONArray array_output;	
 		// Tag 
 		private String l_cur;		// 成交價格
 		private String ltt;			// 時間
@@ -288,13 +287,15 @@ public class EchoApplication
 		return result_txt;    	
 	}
     
-    private void String_to_Json(String input) throws Exception
+    private JSONObject String_to_Json(String input) throws Exception
 	{
 		// String to JsonArray		
     	String input_json = input.substring(3, input.length());
 		array_output = (JSONArray)parser_output.parse(input_json);		
-		output_json = (JSONObject)array_output.get(0);
+		JSONObject output_json = (JSONObject)array_output.get(0);
 		//System.out.println(output_json);
+		
+		return output_json;
 	}
     
     private String Disply(JSONObject google_json)
