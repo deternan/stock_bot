@@ -287,8 +287,8 @@ public class EchoApplication
     	Document doc = Jsoup.connect("http://finance.google.com/finance/info?client=ig&q=TPE:2317").get();
 		//System.out.println(doc);
 		Elements body = doc.select("body");
-		String json_str;
-		json_str = body.text().substring(3, body.text().length());
+//		String json_str;
+//		json_str = body.text().substring(3, body.text().length());
 		//System.out.println(json_str);	
     	
 		// String to Json
