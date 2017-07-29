@@ -76,7 +76,7 @@ public class EchoApplication
     	
     	System.out.println("event: " + event);
     	//return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
-        return new TextMessage(event.getMessage().getText());
+        //return new TextMessage(event.getMessage().getText());
     	
     	    	
     	String get_return = "";
