@@ -44,13 +44,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import Read_Taiwan_StockID;
 
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication 
-{
-	
+{	
 	// Pattern expression
 	private static Pattern p;
 	private static Matcher m;
