@@ -251,7 +251,9 @@ public class EchoApplication
 
     private static void Google_data(String code) throws Exception
 	{
-    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
+    	
 		/*
     	System.out.println(url);
 		URL obj;
@@ -294,10 +296,10 @@ public class EchoApplication
 		//System.out.println(json_str);	
     	*/
 		
-    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
         InputStream is = new URL(url).openStream();
         try {
-             BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8")); 	//避免中文亂碼問題
+             BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
              StringBuilder sb = new StringBuilder();
              String inputLine;
              while ((inputLine = rd.readLine()) != null) 
