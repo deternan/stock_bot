@@ -36,6 +36,7 @@ import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -44,7 +45,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import Read_Taiwan_StockID;
 
 @SpringBootApplication
 @LineMessageHandler
@@ -55,8 +55,10 @@ public class EchoApplication
 	private static Matcher m;
 	private static String space_pattern = "^[0-9]";	
 	
-	static ArrayList<String> code = new ArrayList<String>();
-	static ArrayList<String> name = new ArrayList<String>();
+	//static ArrayList<String> code = new ArrayList<String>();
+	//static ArrayList<String> name = new ArrayList<String>();
+	Vector code = new Vector();
+	Vector name = new Vector();
 	
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -65,10 +67,13 @@ public class EchoApplication
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception{
         
-//    	Read_Taiwan_StockID();
-    	Read_Taiwan_StockID stockid = new Read_Taiwan_StockID();
-    	code = stockid.Return_code();
-    	name = stockid.Return_name();
+    	code.clear();
+    	name.clear();
+    	Read_Taiwan_StockID();
+    	
+//    	Read_Taiwan_StockID stockid = new Read_Taiwan_StockID();
+//    	code = stockid.Return_code();
+//    	name = stockid.Return_name();
     	
     	System.out.println("event: " + event);
     	return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
