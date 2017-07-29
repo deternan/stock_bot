@@ -297,7 +297,16 @@ public class EchoApplication
     	*/
 		
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
-        InputStream is = new URL(url).openStream();
+    	try{
+    		InputStream is = new URL(url).openStream();
+    	} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
 //        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
 //        StringBuilder sb = new StringBuilder();
 //        String inputLine;
