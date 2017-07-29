@@ -34,6 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -335,6 +336,24 @@ public class EchoApplication
 //		 }
 //        System.out.println(sb.toString());
         
+    	URL urla;
+		try {
+			urla = new URL(url);
+			URLConnection conn = urla.openConnection();
+//			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//			String inputLine;
+//            while ((inputLine = br.readLine()) != null) {
+//                    System.out.println(inputLine);
+//            }
+//            br.close();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	
 		// String to Json
 		// String_to_Json(result_str);
