@@ -26,6 +26,8 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -53,7 +55,8 @@ public class EchoApplication
     	
     	
     	System.out.println("event: " + event);
-        return new TextMessage(event.getMessage().getText());
+    	return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
+        //return new TextMessage(event.getMessage().getText());
     	
     	//System.out.println("event: " + event);    	
 //    	String get_return = "";
