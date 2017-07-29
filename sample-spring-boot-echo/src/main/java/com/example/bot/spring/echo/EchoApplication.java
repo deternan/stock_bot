@@ -306,16 +306,16 @@ public class EchoApplication
 		}
     	*/
     	
-    	InputStream is = null;		
-		try {
-			is = new URL(url).openStream();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+//    	InputStream is = null;		
+//		try {
+//			is = new URL(url).openStream();
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
 		
 //		try {
 //			BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
