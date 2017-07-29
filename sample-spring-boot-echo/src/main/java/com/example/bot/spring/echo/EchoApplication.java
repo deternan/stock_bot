@@ -26,24 +26,20 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.apache.commons.io.IOUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 @SpringBootApplication
@@ -62,6 +58,19 @@ public class EchoApplication
 	static ArrayList<String> code = new ArrayList<String>();
 	static ArrayList<String> name = new ArrayList<String>();
 	
+	// Output
+	JSONParser parser_output = new JSONParser();
+	JSONArray array_output;
+	JSONObject output_json;
+		// Tag 
+		private String l_cur;		// 成交價格
+		private String ltt;			// 時間
+		private String lt;			// 日期時間
+		private String c;			// 漲跌
+		private String cp;			// 漲跌幅
+	// Display
+	private String Display_str = "";
+		
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
     }
@@ -99,7 +108,11 @@ public class EchoApplication
             		// Google 
             		result_txt = Google_data(event.getMessage().getText());
             		
-            		return new TextMessage(result_txt);
+            		// String to Json 
+            		JSONObject google_json = String_to_Json(result_txt);
+            		Display_str = Disply(google_json);
+            		
+            		return new TextMessage(Display_str);
             		//return new TextMessage(get_stockname);
             	}else{
             		get_return = "illegal";        	
@@ -256,92 +269,6 @@ public class EchoApplication
 	{
     	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
-    	
-		/*
-    	System.out.println(url);
-		URL obj;
-		try {
-			obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-			// optional default is GET
-			con.setRequestMethod("GET");
-			// add request header
-			con.setRequestProperty("User-Agent", USER_AGENT);
-			//int responseCode = con.getResponseCode();
-			
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) 
-			{
-				//response.append(inputLine);
-			}
-			in.close();
-			//String result_str = response.toString().substring(3,response.toString().length());
-			//System.out.println(response.toString().substring(3,response.toString().length()));
-			
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}
-		*/
-
-    	/*
-    	Document doc = Jsoup.connect("http://finance.google.com/finance/info?client=ig&q=TPE:2317").get();
-		//System.out.println(doc);
-		Elements body = doc.select("body");
-//		String json_str;
-//		json_str = body.text().substring(3, body.text().length());
-		//System.out.println(json_str);	
-    	*/
-		
-    	/*
-    	try{
-    		InputStream is = new URL(url).openStream();
-    		BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8")); 	//避免中文亂碼問題
-            StringBuilder sb = new StringBuilder();
-            String inputLine;
-            
-            is.close();
-            
-    	}  catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}
-    	*/
-    	
-//    	InputStream is = null;		
-//		try {
-//			is = new URL(url).openStream();
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-		
-//		try {
-//			BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			//e.printStackTrace();
-//		} 	
-    	
-    	
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
-//        StringBuilder sb = new StringBuilder();
-//        String inputLine;
-//        while ((inputLine = rd.readLine()) != null) 
-//        {
-//			 sb.append(inputLine);
-//       	 //System.out.println(inputLine);
-//		 }
-//        System.out.println(sb.toString());
         
     	URL urla;
     	String result_txt = "";
@@ -357,10 +284,32 @@ public class EchoApplication
 			e.printStackTrace();
 		}
     	
-		return result_txt;
-    	
-		// String to Json
-		// String_to_Json(result_str);
+		return result_txt;    	
 	}
+    
+    private void String_to_Json(String input) throws Exception
+	{
+		// String to JsonArray		
+    	String input_json = input.substring(3, input.length());
+		array_output = (JSONArray)parser_output.parse(input_json);		
+		output_json = (JSONObject)array_output.get(0);
+		//System.out.println(output_json);
+	}
+    
+    private String Disply(JSONObject google_json)
+    {
+//    	private String l_cur;		// 成交價格
+//		private String ltt;			// 時間
+//		private String lt;			// 日期時間
+//		private String c;			// 漲跌
+//		private String cp;			// 漲跌幅
+    	
+    	String Display_return = ""; 
+    	Display_return += "時間" + google_json.get("lt") +"\n";
+    	Display_return += "成交價格" + google_json.get("l_cur") +"\n";
+    	Display_return += "漲跌" + google_json.get("c") +"\n";
+    	
+    	return Display_return;
+    }
     
 }
