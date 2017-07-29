@@ -35,10 +35,12 @@ import java.util.ArrayList;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -339,19 +341,14 @@ public class EchoApplication
     	URL urla;
 		try {
 			urla = new URL(url);
-			URLConnection conn = urla.openConnection();
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//			String inputLine;
-//            while ((inputLine = br.readLine()) != null) {
-//                    System.out.println(inputLine);
-//            }
-//            br.close();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			urla.openConnection();
+			InputStream reader = urla.openStream();
+			String result = IOUtils.toString(reader, StandardCharsets.UTF_8);
+			System.out.println(result);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
     	
     	
