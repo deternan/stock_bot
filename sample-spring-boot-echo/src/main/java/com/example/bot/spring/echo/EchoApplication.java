@@ -55,10 +55,10 @@ public class EchoApplication
 	private static Matcher m;
 	private static String space_pattern = "^[0-9]";	
 	
-	//static ArrayList<String> code = new ArrayList<String>();
-	//static ArrayList<String> name = new ArrayList<String>();
-	Vector code = new Vector();
-	Vector name = new Vector();
+	static ArrayList<String> code = new ArrayList<String>();
+	static ArrayList<String> name = new ArrayList<String>();
+	//Vector code = new Vector();
+	//Vector name = new Vector();
 	
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
