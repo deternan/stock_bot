@@ -249,7 +249,7 @@ public class EchoApplication
 		}		
 	}
 
-    private void Google_data(String code) throws Exception
+    private void Google_data(String code)
 	{
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
@@ -299,12 +299,9 @@ public class EchoApplication
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	try{
     		InputStream is = new URL(url).openStream();
-    	} catch (MalformedURLException e) {
+    	}  catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
     	
 //        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
