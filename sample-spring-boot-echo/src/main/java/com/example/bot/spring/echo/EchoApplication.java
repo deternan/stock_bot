@@ -49,6 +49,10 @@ import org.jsoup.select.Elements;
 @LineMessageHandler
 public class EchoApplication
 {	
+	// Google data
+	private static final String USER_AGENT = "Mozilla/5.0";
+	private boolean digital_check;
+	private boolean character_check;
 	// Pattern expression
 	private static Pattern p;
 	private static Matcher m;
