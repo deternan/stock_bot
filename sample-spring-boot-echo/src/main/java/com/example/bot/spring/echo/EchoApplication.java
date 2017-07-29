@@ -27,6 +27,7 @@ import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 import java.io.InputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -279,7 +280,7 @@ public class EchoApplication
 			result_txt = IOUtils.toString(reader, StandardCharsets.UTF_8);
 			//System.out.println(result);
 			
-		} catch (Exception e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
