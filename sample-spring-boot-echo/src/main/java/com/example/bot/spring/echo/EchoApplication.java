@@ -306,8 +306,7 @@ public class EchoApplication
 		}
     	*/
     	
-    	InputStream is = null;
-		String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	InputStream is = null;		
 		try {
 			is = new URL(url).openStream();
 		} catch (MalformedURLException e) {
