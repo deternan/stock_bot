@@ -279,9 +279,9 @@ public class EchoApplication
 			result_txt = IOUtils.toString(reader, StandardCharsets.UTF_8);
 			//System.out.println(result);
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
     	
 		return result_txt;    	
