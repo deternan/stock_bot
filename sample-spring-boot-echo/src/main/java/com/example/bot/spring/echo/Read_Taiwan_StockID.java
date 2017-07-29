@@ -43,7 +43,7 @@ public class Read_Taiwan_StockID
 		}
 	}
 	
-	private void boolean Pattern_expression_digital(String input)
+	private boolean Pattern_expression_digital(String input)
 	{
 		boolean check = false;
 		String temp;
@@ -65,7 +65,7 @@ public class Read_Taiwan_StockID
 		return check;
 	}
     
-    private void void Separation(String input)
+    private void Separation(String input)
 	{
 		String code_temp = input.substring(0, 4);
 		String name_temp = input.substring(5, input.length());
