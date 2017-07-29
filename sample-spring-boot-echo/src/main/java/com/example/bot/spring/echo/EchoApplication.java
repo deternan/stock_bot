@@ -75,51 +75,51 @@ public class EchoApplication
 //    	name = stockid.Return_name();
     	
     	System.out.println("event: " + event);
-    	return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
-        //return new TextMessage(event.getMessage().getText());
+    	//return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
+        return new TextMessage(event.getMessage().getText());
     	
-    	//System.out.println("event: " + event);    	
-//    	String get_return = "";
-//    	String get_stockname = "";
-//		String getstockcode = "";
-//		// Digital check        
-//        digital_check = Regular_Expression_Digital(event.getMessage().getText());
-//        if(digital_check == true){
-//        	if(event.getMessage().getText().length() == 4){
-//        		//get_return = "4 digital";        		
-//        		get_stockname = "";        	
-//            	get_stockname = Return_name(event.getMessage().getText());
-//            	if(get_stockname.length() > 0){
-//            		
-//            		// Google 
-////            		Google_data(event.getMessage().getText());
-//            		
-//            		return new TextMessage(get_stockname);
-//            	}else{
-//            		get_return = "illegal";        	
-//            		return new TextMessage(get_return);
-//            	}        		
-//            	
-//        	}else{
-//        		get_return = "Please input 4 digital code or Stock name";
-//        		return new TextMessage(get_return);
-//        	}        	
-//        }else{
-//        	getstockcode = "";
-//        	if(event.getMessage().getText().length() > 0){
-//        		getstockcode = Return_code(event.getMessage().getText());
-//        		
-//        		// Google
-////        		Google_data(getstockcode);
-//        		
-//        		return new TextMessage(getstockcode);
-//        	}else{
-//        		get_return = "illegal"; 
-//        		return new TextMessage(get_return);
-//        	}
-//        	
-//        	//Google_data(event.getMessage().getText());
-//        }
+    	    	
+    	String get_return = "";
+    	String get_stockname = "";
+		String getstockcode = "";
+		// Digital check        
+        digital_check = Regular_Expression_Digital(event.getMessage().getText());
+        if(digital_check == true){
+        	if(event.getMessage().getText().length() == 4){
+        		//get_return = "4 digital";        		
+        		get_stockname = "";        	
+            	get_stockname = Return_name(event.getMessage().getText());
+            	if(get_stockname.length() > 0){
+            		
+            		// Google 
+//            		Google_data(event.getMessage().getText());
+            		
+            		return new TextMessage(get_stockname);
+            	}else{
+            		get_return = "illegal";        	
+            		return new TextMessage(get_return);
+            	}        		
+            	
+        	}else{
+        		get_return = "Please input 4 digital code or Stock name";
+        		return new TextMessage(get_return);
+        	}        	
+        }else{
+        	getstockcode = "";
+        	if(event.getMessage().getText().length() > 0){
+        		getstockcode = Return_code(event.getMessage().getText());
+        		
+        		// Google
+//        		Google_data(getstockcode);
+        		
+        		return new TextMessage(getstockcode);
+        	}else{
+        		get_return = "illegal"; 
+        		return new TextMessage(get_return);
+        	}
+        	
+        	//Google_data(event.getMessage().getText());
+        }
         
     }
 
@@ -184,6 +184,25 @@ public class EchoApplication
 		code.add(code_temp);
 		name.add(name_temp);
 	}
+    
+    private static boolean Regular_Expression_Digital(String input_str)
+    {
+    	//Regular_Expression
+    	String num_pattern = "[0-9]{4}";    	
+
+    	// Number check
+    	Pattern p = Pattern.compile(num_pattern);
+    	Matcher  m = p.matcher(input_str);
+        
+    	boolean digital_temp;
+    	if(m.find()){        	
+    		digital_temp = true;
+        }else{
+        	digital_temp = false;
+        }
+    	
+    	return digital_temp;
+    }
     
     private static String Return_name(String code_str)
 	{
