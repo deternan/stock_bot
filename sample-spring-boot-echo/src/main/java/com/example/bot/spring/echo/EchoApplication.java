@@ -95,10 +95,12 @@ public class EchoApplication
             	get_stockname = Return_name(event.getMessage().getText());
             	if(get_stockname.length() > 0){
             		
+            		String result_txt;
             		// Google 
-//            		Google_data(event.getMessage().getText());
+            		result_txt = Google_data(event.getMessage().getText());
             		
-            		return new TextMessage(get_stockname);
+            		return new TextMessage(result_txt);
+            		//return new TextMessage(get_stockname);
             	}else{
             		get_return = "illegal";        	
             		return new TextMessage(get_return);
@@ -113,12 +115,12 @@ public class EchoApplication
         	getstockcode = "";
         	if(event.getMessage().getText().length() > 0){
         		getstockcode = Return_code(event.getMessage().getText());
-        		String result_txt;
+        		//String result_txt;
         		// Google finicial
-        		result_txt = Google_data(getstockcode);
+        		//result_txt = Google_data(getstockcode);
         		
-        		return new TextMessage(result_txt);
-        		//return new TextMessage(getstockcode);
+        		//return new TextMessage(result_txt);
+        		return new TextMessage(getstockcode);
         	}else{
         		get_return = "illegal"; 
         		return new TextMessage(get_return);
@@ -252,8 +254,8 @@ public class EchoApplication
 
     private String Google_data(String code)
 	{
-    	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
-    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
+    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
     	
 		/*
     	System.out.println(url);
