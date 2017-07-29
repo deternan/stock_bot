@@ -298,22 +298,16 @@ public class EchoApplication
 		
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
         InputStream is = new URL(url).openStream();
-        try {
-             BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
-             StringBuilder sb = new StringBuilder();
-             String inputLine;
-             while ((inputLine = rd.readLine()) != null) 
-             {
-    			 sb.append(inputLine);
-            	 //System.out.println(inputLine);
-    		 }
-             System.out.println(sb.toString());
-
-             //JSONObject json = JSONObject.fromObject(sb.toString());
-             //System.out.println(json.get("hello"));
-        } finally {
-             is.close();
-        }
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is,"utf-8"));
+//        StringBuilder sb = new StringBuilder();
+//        String inputLine;
+//        while ((inputLine = rd.readLine()) != null) 
+//        {
+//			 sb.append(inputLine);
+//       	 //System.out.println(inputLine);
+//		 }
+//        System.out.println(sb.toString());
+        
     	
 		// String to Json
 		// String_to_Json(result_str);
