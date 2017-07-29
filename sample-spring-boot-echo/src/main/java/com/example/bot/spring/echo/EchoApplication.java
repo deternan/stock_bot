@@ -79,8 +79,8 @@ public class EchoApplication
 //    	name = stockid.Return_name();
     	
     	System.out.println("event: " + event);
-    	//return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
-        //return new TextMessage(event.getMessage().getText());
+//    	return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
+//      return new TextMessage(event.getMessage().getText());
     	
     	    	
     	String get_return = "";
@@ -248,4 +248,51 @@ public class EchoApplication
 		}		
 	}
 
+    private static void Google_data(String code) throws Exception
+	{
+    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+		/*
+    	System.out.println(url);
+		URL obj;
+		try {
+			obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			// optional default is GET
+			con.setRequestMethod("GET");
+			// add request header
+			con.setRequestProperty("User-Agent", USER_AGENT);
+			//int responseCode = con.getResponseCode();
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) 
+			{
+				//response.append(inputLine);
+			}
+			in.close();
+			//String result_str = response.toString().substring(3,response.toString().length());
+			//System.out.println(response.toString().substring(3,response.toString().length()));
+			
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			//e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+		*/
+
+    	Document doc = Jsoup.connect("http://finance.google.com/finance/info?client=ig&q=TPE:2317").get();
+		//System.out.println(doc);
+		Elements body = doc.select("body");
+		String json_str;
+		json_str = body.text().substring(3, body.text().length());
+		//System.out.println(json_str);	
+    	
+		// String to Json
+		// String_to_Json(result_str);
+	}
+    
 }
