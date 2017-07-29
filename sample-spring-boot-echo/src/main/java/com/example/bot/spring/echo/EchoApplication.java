@@ -29,6 +29,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
