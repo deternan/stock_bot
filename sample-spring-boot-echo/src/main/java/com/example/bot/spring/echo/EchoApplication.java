@@ -340,7 +340,7 @@ public class EchoApplication
 		try {
 			urla = new URL(url);
 			URLConnection conn = urla.openConnection();
-//			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 //			String inputLine;
 //            while ((inputLine = br.readLine()) != null) {
 //                    System.out.println(inputLine);
