@@ -65,8 +65,10 @@ public class EchoApplication
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception{
         
-    	Read_Taiwan_StockID(); 
-    	
+//    	Read_Taiwan_StockID(); 
+    	Read_Taiwan_StockID stockid = new Read_Taiwan_StockID();
+    	code = stockid.Return_code();
+    	name = stockid.Return_name();
     	
     	System.out.println("event: " + event);
     	return new TextMessage(event.getMessage().getText()+"	"+code.size()+"	"+name.size());
