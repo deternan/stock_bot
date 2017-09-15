@@ -283,6 +283,7 @@ public class EchoApplication
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
+			result_txt = "Google Source Error";
 		}
     	
 		return result_txt;    	
