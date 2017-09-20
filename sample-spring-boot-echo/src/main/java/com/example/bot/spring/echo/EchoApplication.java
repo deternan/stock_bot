@@ -14,6 +14,12 @@
  * under the License.
  */
 
+ /*
+  * Last updated: September 20, 2017 06:44 PM
+  *
+ */
+ 
+ 
 package com.example.bot.spring.echo;
 
 import org.springframework.boot.SpringApplication;
@@ -268,7 +274,9 @@ public class EchoApplication
 
     private String Google_data(String code)
 	{
-    	String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
+    	// September 2017
+		// https://finance.google.com/finance?q=TPE:2317output=json
+		String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ code;
     	//String url = "http://finance.google.com/finance/info?client=ig&q=TPE:"+ 2317;
         
     	URL urla;
