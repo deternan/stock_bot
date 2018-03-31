@@ -100,10 +100,10 @@ public class EchoApplication
     {
         // 
     	String temp[] = event.getMessage().getText().split("\\s");
-    	String code = temp[0];
-    	String year = temp[1];
+    	code = temp[0];
+    	year = temp[1];
     	
-    	System.out.printl(code+"	"+year);
+    	System.out.println(code+"	"+year);
     	
 //    		divided(code, year);
 //    		//System.out.println(year+"	"+code+"	"+stock_value+"	"+stock_cash+"	"+stock_divided);
