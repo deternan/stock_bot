@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 import lombok.NonNull;
 import okhttp3.Interceptor;
@@ -35,7 +36,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public final class LineMessagingServiceBuilder {
+public class LineMessagingServiceBuilder {
     public static final String DEFAULT_API_END_POINT = "https://api.line.me/";
     public static final long DEFAULT_CONNECT_TIMEOUT = 10_000;
     public static final long DEFAULT_READ_TIMEOUT = 10_000;
@@ -164,6 +165,7 @@ public final class LineMessagingServiceBuilder {
     /**
      * Creates a new {@link LineMessagingService}.
      */
+    @SuppressWarnings("deprecation")
     public LineMessagingService build() {
         if (okHttpClientBuilder == null) {
             okHttpClientBuilder = new OkHttpClient.Builder();
@@ -200,12 +202,13 @@ public final class LineMessagingServiceBuilder {
     }
 
     private static Retrofit.Builder createDefaultRetrofitBuilder() {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        // Register JSR-310(java.time.temporal.*) module and read number as millsec.
-        objectMapper.registerModule(new JavaTimeModule())
-                    .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+        final ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                // Register ParameterNamesModule to read parameter name from lombok generated constructor.
+                .registerModule(new ParameterNamesModule())
+                // Register JSR-310(java.time.temporal.*) module and read number as millsec.
+                .registerModule(new JavaTimeModule())
+                .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
 
         return new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -16,6 +16,8 @@
 
 package com.linecorp.bot.model.event.postback;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,12 +32,12 @@ public class PostbackContent {
      * Postback data
      */
     private final String data;
-    private final Object params;
+    private final Map<String, String> params;
 
     @JsonCreator
     public PostbackContent(
             @JsonProperty("data") String data,
-            @JsonProperty("params") Object params) {
+            @JsonProperty("params") Map<String, String> params) {
         this.data = data;
         this.params = params;
     }

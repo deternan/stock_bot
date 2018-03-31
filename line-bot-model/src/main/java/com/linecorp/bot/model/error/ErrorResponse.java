@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -19,6 +19,7 @@ package com.linecorp.bot.model.error;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Value;
@@ -30,6 +31,9 @@ import lombok.Value;
  */
 @Value
 public class ErrorResponse {
+    /** Request ID in response header */
+    String requestId;
+
     /** Summary or details of the error. */
     String message;
 
@@ -41,8 +45,10 @@ public class ErrorResponse {
     List<ErrorDetail> details;
 
     public ErrorResponse(
+            @JacksonInject("requestId") final String requestId,
             @JsonProperty("message") final String message,
             @JsonProperty("details") final List<ErrorDetail> details) {
+        this.requestId = requestId;
         this.message = message;
         this.details = details != null ? details : Collections.emptyList();
     }

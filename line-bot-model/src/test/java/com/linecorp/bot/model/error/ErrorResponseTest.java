@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -23,13 +23,17 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ErrorResponseTest {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
+            .setInjectableValues(new InjectableValues.Std().addValue("requestId", "requestId"));
+
     @Test
     public void simpleErrorResponseTest() throws IOException {
         // Do
-        final ErrorResponse result = new ObjectMapper()
+        final ErrorResponse result = OBJECT_MAPPER
                 .readValue(getSystemResourceAsStream("error/error401.json"),
                            ErrorResponse.class);
 
@@ -41,7 +45,7 @@ public class ErrorResponseTest {
     @Test
     public void complexErrorResponseTest() throws IOException {
         // Do
-        final ErrorResponse result = new ObjectMapper()
+        final ErrorResponse result = OBJECT_MAPPER
                 .readValue(getSystemResourceAsStream("error/error_with_detail.json"),
                            ErrorResponse.class);
 

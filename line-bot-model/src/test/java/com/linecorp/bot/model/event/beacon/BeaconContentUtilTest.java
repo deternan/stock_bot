@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -49,6 +49,15 @@ public class BeaconContentUtilTest {
     }
 
     @Test
+    public void parseBytesOrNullTestForEmpty() throws Exception {
+        // Do
+        byte[] bytes = BeaconContentUtil.parseBytesOrNull("");
+
+        // Verify
+        assertThat(bytes).isNotNull().isEmpty();
+    }
+
+    @Test
     public void printHexBinaryForActualValue() throws Exception {
         // Do
         String result = BeaconContentUtil.printHexBinary(new byte[] { 0x01, (byte) 0xab });
@@ -64,5 +73,33 @@ public class BeaconContentUtilTest {
 
         // Verify
         assertThat(result).isNull();
+    }
+
+    @Test
+    public void printHexBinaryForEmpty() throws Exception {
+        // Do
+        String result = BeaconContentUtil.printHexBinary(new byte[] {});
+
+        // Verify
+        assertThat(result).isNotNull().isEmpty();
+    }
+
+    @Test
+    public void printHexBinaryAndDeConvertForAllSingleByteCase() throws Exception {
+        for (int i = 0; i < 256; ++i) {
+            byte[] originalBytes = { (byte) i };
+
+            // Do
+            String stringResult = BeaconContentUtil.printHexBinary(originalBytes);
+
+            // Verify
+            assertThat(stringResult).isEqualTo(String.format("%02x", i));
+
+            // Do
+            byte[] deConverted = BeaconContentUtil.parseBytesOrNull(stringResult);
+
+            // Verify
+            assertThat(deConverted).isEqualTo(originalBytes);
+        }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -41,7 +41,6 @@ public class LineBotProperties {
      *
      * @see ChannelTokenSupplyMode
      */
-    @Valid
     @NotNull
     private ChannelTokenSupplyMode channelTokenSupplyMode = ChannelTokenSupplyMode.FIXED;
 
@@ -94,7 +93,7 @@ public class LineBotProperties {
     public static class Handler {
         /**
          * Flag to enable/disable {@link LineMessageHandler} and {@link EventMapping}.
-         *
+         * <p>
          * Default: {@code true}
          */
         boolean enabled = true;
@@ -106,7 +105,7 @@ public class LineBotProperties {
         URI path = URI.create("/callback");
     }
 
-    enum ChannelTokenSupplyMode {
+    public enum ChannelTokenSupplyMode {
         /**
          * Use fixed channel token for public API user.
          */

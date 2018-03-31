@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -32,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
         @JsonSubTypes.Type(PostbackAction.class),
         @JsonSubTypes.Type(URIAction.class),
         @JsonSubTypes.Type(MessageAction.class),
+        @JsonSubTypes.Type(DatetimePickerAction.class),
 })
 public interface Action {
     String getLabel();
