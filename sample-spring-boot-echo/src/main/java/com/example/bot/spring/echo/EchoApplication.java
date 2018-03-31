@@ -176,15 +176,15 @@ public class EchoApplication
 
     private void divided(int code, int year)
 	{
-		try {
-			div = new Get_dividend(code, year);
-			stock_cash = div.return_cash();
-			stock_divided = div.return_divided();
-			stock_value = div.return_value();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			div = new Get_dividend(code, year);
+//			stock_cash = div.return_cash();
+//			stock_divided = div.return_divided();
+//			stock_value = div.return_value();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
     
     @EventMapping
