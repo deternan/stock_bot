@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 LINE Corporation
+ * Copyright 2018 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
  * version 2.0 (the "License"); you may not use this file except in compliance
@@ -24,16 +24,17 @@ buildscript {
     }
     dependencies {
         classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
-        classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE'
-        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
+        classpath 'io.franzbecker:gradle-lombok:1.6'
     }
 }
 
 apply plugin: 'idea'
 
 group = 'com.linecorp.bot'
-version = '1.9.0'
+version = '1.16.0'
 
 //set build variables based on build type (release, continuous integration, development)
 def isDevBuild
@@ -61,6 +62,7 @@ subprojects {
     apply plugin: 'propdeps-eclipse'
     apply plugin: 'findbugs'
     apply plugin: 'java'
+    apply plugin: 'io.franzbecker.gradle-lombok'
     if (new File("${project.rootDir}/.git").exists()) {
         logger.info("There's .git directory. Create git.properties.")
         apply plugin: 'com.gorylenko.gradle-git-properties'
@@ -75,23 +77,22 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 
-    ext['guava.version'] = '21.0'
-    ext['okhttp3.version'] = '3.6.0'
+    ext['guava.version'] = '23.6-jre'
+    ext['okhttp3.version'] = '3.9.1'
 
     dependencyManagement {
         imports {
-            mavenBom 'io.spring.platform:platform-bom:Brussels-SR1'
+            mavenBom 'io.spring.platform:platform-bom:Brussels-SR6'
         }
 
         dependencies {
-            dependency 'com.github.stefanbirkner:system-rules:1.16.1'
+            dependency 'com.github.stefanbirkner:system-rules:1.17.0'
             dependency 'com.squareup.okhttp3:logging-interceptor:' + ext['okhttp3.version']
             dependency 'com.squareup.okhttp3:mockwebserver:' + ext['okhttp3.version']
-            dependency 'com.squareup.retrofit2:converter-jackson:2.2.0'
-            dependency 'com.squareup.retrofit2:retrofit:2.2.0'
-            dependency 'org.assertj:assertj-core:3.6.2'
-            dependency 'org.projectlombok:lombok:1.16.12'
-            dependency 'com.fasterxml.jackson.core:jackson-databind:2.8.8.1'
+            dependency 'com.squareup.retrofit2:converter-jackson:2.3.0'
+            dependency 'com.squareup.retrofit2:retrofit:2.3.0'
+            dependency 'org.assertj:assertj-core:3.9.0'
+            dependency 'org.projectlombok:lombok:1.16.20'
         }
     }
 
@@ -99,7 +100,8 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         testCompileOnly 'org.projectlombok:lombok'
 
-        compileOnly "org.springframework.boot:spring-boot-configuration-processor" // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
         testCompile 'com.google.guava:guava'
         testCompile 'com.github.stefanbirkner:system-rules'
@@ -107,12 +109,10 @@ subprojects {
         testCompile 'org.hibernate:hibernate-validator'
         testCompile 'org.springframework.boot:spring-boot-starter-test' // MockHttpServletRequest
         testCompile 'org.springframework.boot:spring-boot-starter-logging'
-        compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-        compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'        
-        compile group: 'commons-io', name: 'commons-io', version: '2.5'
     }
 
-    compileJava.dependsOn(processResources) // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
+    compileJava.dependsOn(processResources)
+    // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
 
     jar {
         manifest {
@@ -121,13 +121,34 @@ subprojects {
         }
     }
 
+    lombok {
+        version = '1.16.18'
+    }
+
     if (!project.name.startsWith('sample-')) {
-        task javadocJar(type: Jar) {
-            classifier = 'javadoc'
-            from "${buildDir}/javadoc"
+        task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
+            ext.outputDir = file("$buildDir/delombok")
+            outputs.dir(outputDir)
+            sourceSets.main.java.srcDirs.each {
+                inputs.dir(it)
+                args(it, "-d", outputDir)
+            }
         }
 
-        task sourcesJar(type: Jar) {
+        javadoc {
+            dependsOn delombok
+            source = delombok.outputDir
+            options.locale = 'en_US'
+            options.addStringOption('Xdoclint:none', '-quiet')
+            // To create javadoc for generated method&constructor, delombok & run javadoc on delombok.outputDir.
+        }
+
+        task javadocJar(type: Jar, dependsOn: 'javadoc') {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+        }
+
+        task sourcesJar(type: Jar, dependsOn: 'classes') {
             classifier = 'sources'
             from sourceSets.main.allSource
         }
