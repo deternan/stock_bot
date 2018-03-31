@@ -33,7 +33,6 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
-import divided.Get_dividend;
 
 import java.io.InputStream;
 import java.io.IOException;
