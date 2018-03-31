@@ -89,7 +89,17 @@ public class EchoApplication
 	// Calculate
 	double cash;
 	double divided;
+	double value;
 	
+	// divided
+	private String stock_url = "https://goodinfo.tw/StockInfo/StockDividendPolicy.asp?STOCK_ID=";
+	private String stock_path = "";'	
+		
+	// Return
+	double cash_r;
+	double divided_r;
+	
+	private String return_str = "";
 	
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
@@ -102,10 +112,19 @@ public class EchoApplication
     	String temp[] = event.getMessage().getText().split("\\s");
     	code = temp[0];
     	year = temp[1];
+    	    	
+    	// divided(code, year);
+    	stock_path = stock_url + String.valueOf(code);
+				
+		value(code);		
+		// divided information
+		divided_info(code, year_def);
     	
-    	//System.out.println(code+"	"+year);
+		return_str = "";
+		return_str = code+"	"+year + "\n";
+		return_str += Double.toString(cash_r) +" "+ Double.toString(divided_r);
     	
-    	return new TextMessage(code+"	"+year);
+    	return new TextMessage(return_str);
     	
 //    		divided(code, year);
 //    		//System.out.println(year+"	"+code+"	"+stock_value+"	"+stock_cash+"	"+stock_divided);
@@ -176,17 +195,43 @@ public class EchoApplication
         
     }
 
-    private void divided(int code, int year)
+    private void value(int code) throws Exception
 	{
-//		try {
-//			div = new Get_dividend(code, year);
-//			stock_cash = div.return_cash();
-//			stock_divided = div.return_divided();
-//			stock_value = div.return_value();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		Document doc = Jsoup.connect(stock_path).get();
+		Elements tr = doc.select("td[style]");
+		
+		value = Double.parseDouble(tr.get(14).text());		
+	}
+    
+    private void divided_info(int code, int year_def) throws Exception
+	{
+		Document doc = Jsoup.connect(stock_path).get();
+		Elements tr = doc.select("tr[OnMouseOver]");
+		//System.out.println(tr.size()+"	"+code+"	"+name);
+		
+		// ----------------------------
+		// Year
+		Elements td = tr.get(0).select("td b");
+		year = td.get(0).text().toString();				// fixed
+		// record
+		Elements td_list = tr.get(0).select("td[title]");
+		
+		if(td_list.get(2).text().toString().indexOf("-") > 0) {
+			cash = -1;
+			divided = -1;
+		}else {
+			cash = Double.parseDouble(td_list.get(2).text().toString());
+			divided = Double.parseDouble(td_list.get(5).text().toString());
+		}		
+		//System.out.println(year+"	"+code+"	"+cash+"	"+divided);
+		
+		if(Integer.parseInt(year) == year_def) {
+			cash_r = cash;
+			divided_r = divided;
+		}else {
+			cash_r = -1;
+			divided_r = -1;
+		}
 	}
     
     @EventMapping
