@@ -100,8 +100,8 @@ public class EchoApplication
     {
         // 
     	String temp[] = event.getMessage().getText().split("\\s");
-    	code = temp[0];
-    	year = temp[1];
+    	String code = temp[0];
+    	String year = temp[1];
     	
     	System.out.printl(code+"	"+year);
     	
