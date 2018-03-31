@@ -93,7 +93,7 @@ public class EchoApplication
 	
 	// divided
 	private String stock_url = "https://goodinfo.tw/StockInfo/StockDividendPolicy.asp?STOCK_ID=";
-	private String stock_path = "";'	
+	private String stock_path = "";	
 		
 	// Return
 	double cash_r;
