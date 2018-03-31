@@ -82,8 +82,7 @@ public class EchoApplication
 	String name;
 	String year;
 	
-	// Function
-	Get_dividend div;
+	// Function	
 	// Return Stock data
 	double stock_cash;
 	double stock_divided;	
