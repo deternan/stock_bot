@@ -93,7 +93,7 @@ public class EchoApplication
 	
 	// divided
 	private String stock_url = "https://goodinfo.tw/StockInfo/StockDividendPolicy.asp?STOCK_ID=";
-	private String stock_path = "";	
+	private String stock_path = "";
 		
 	// Return
 	double cash_r;
@@ -110,15 +110,15 @@ public class EchoApplication
     {
         // 
     	String temp[] = event.getMessage().getText().split("\\s");
-    	code = temp[0];
-    	year = temp[1];
+    	code = Integer.parseInt(temp[0]);
+    	year = Integer.parseInt(temp[1]);
     	    	
     	// divided(code, year);
     	stock_path = stock_url + String.valueOf(code);
 				
 		value(code);		
 		// divided information
-		divided_info(code, year_def);
+		divided_info(code, year);
     	
 		return_str = "";
 		return_str = code+"	"+year + "\n";
