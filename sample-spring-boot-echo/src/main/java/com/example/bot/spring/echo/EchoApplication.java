@@ -78,9 +78,9 @@ public class EchoApplication
 //		private String c;			// 漲跌
 //		private String cp;			// 漲跌幅
 
-	String code;
+	int code;
 	String name;
-	String year;
+	int year;
 	
 	// Function	
 	// Return Stock data
@@ -109,9 +109,9 @@ public class EchoApplication
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception
     {
         // 
-    	String temp[] = event.getMessage().getText().split("\\s");
-    	code = Integer.parseInt(temp[0]);
-    	year = Integer.parseInt(temp[1]);
+    	String temp[] = event.getMessage().getText().toString().split("\\s");
+    	code = Integer.valueOf(temp[0]);
+    	year = Integer.valueOf(temp[1]);
     	    	
     	// divided(code, year);
     	stock_path = stock_url + String.valueOf(code);
