@@ -206,13 +206,12 @@ public class EchoApplication
     private void divided_info(int code, int year_def) throws Exception
 	{
 		Document doc = Jsoup.connect(stock_path).get();
-		Elements tr = doc.select("tr[OnMouseOver]");
-		//System.out.println(tr.size()+"	"+code+"	"+name);
+		Elements tr = doc.select("tr[OnMouseOver]");		
 		
 		// ----------------------------
 		// Year
 		Elements td = tr.get(0).select("td b");
-		year = td.get(0).text().toString();				// fixed
+		String year_q = td.get(0).text().toString();				// fixed
 		// record
 		Elements td_list = tr.get(0).select("td[title]");
 		
@@ -222,10 +221,9 @@ public class EchoApplication
 		}else {
 			cash = Double.parseDouble(td_list.get(2).text().toString());
 			divided = Double.parseDouble(td_list.get(5).text().toString());
-		}		
-		//System.out.println(year+"	"+code+"	"+cash+"	"+divided);
+		}				
 		
-		if(Integer.parseInt(year) == year_def) {
+		if(Integer.parseInt(year_q) == year_def) {
 			cash_r = cash;
 			divided_r = divided;
 		}else {
